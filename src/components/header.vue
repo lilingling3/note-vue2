@@ -12,7 +12,7 @@
 export default {
    methods:{
      showTools:function(){
-        
+        this.$emit('tools')// 子组件向父组件传递数据 通过触发子组件事件 触发 父组件事件 进而改变 数据
      }
    }
 }
