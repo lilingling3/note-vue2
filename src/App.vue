@@ -14,6 +14,7 @@
                     @opentheme='openTheme'-->
         <n-slidebar :is-show='tools'
                     @opentheme='openTheme'
+                    @uploadData='uploadData'
         ></n-slidebar>
      </section>
      <n-theme :is-show='theme'
@@ -61,7 +62,10 @@ export default {
     openTheme(){
         this.theme = true;//主题页面打开
         this.tools = false;//slidebar隐藏
-    }
+    },
+    uploadData(){
+
+    },
   },
 }
 </script>

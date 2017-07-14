@@ -27,14 +27,29 @@ export default {
     }
   },
   props:['isShow'],
+  computed:{
+    getDate(){
+      const self = this;
+      return JSON.stringify(self.$store.state)
+    }
+  },
   methods:{
+    // 切换主题
     openTheme(){
-        console.log('主题页面打开')
-        this.$emit('opentheme')// 触发父组件 打开 主题页面事件
+        console.log('主题页面打开');
+        this.$emit('opentheme');// 触发父组件 打开 主题页面事件
     },
-    downloadData(){
-        
+    // 下载数据
+    downloadData(fileName,content){
+        console.log('下载数据');
+        let aTag = document.createElement('a');
+        let blob = new Blob([content]); // Blob 返回二进制数据
+        aTag.download = fileName;
+        aTag.href = URL.createObjectURL(blob);
+        aTag.click()
+        URL.revokeObjectURL(blob);// 释放 blob 对象
     },
+    // 导入数据
     uploadData(){
 
     },
