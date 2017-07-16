@@ -1,7 +1,7 @@
 import * as func from '../function'
 import actions from './actions'
-import getters from './getters'
 import mutations from './mutations'
+import getters from './getters'
 
 const state = func.local.get() || {
   event:[],

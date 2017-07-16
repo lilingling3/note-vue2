@@ -2,13 +2,25 @@ export default {
   getEventList(states){
     return states.event
   },
-  getTodo(states){
-    return states.event.filter(d => d.type === 1)
+  getToDo(states){
+      return states.event.filter(function (d) {
+          if (d.type === 1) {
+              return d;
+          }
+      });
   },
   getDone(states){
-    return states.event.filter(d => d.type === 2)
+    return states.event.filter(function(d){
+      if(d.type === 2){
+        return d
+       }
+    })
   },
   getCancel(states){
-    return states.event.filter(d => d.type === 3)
+    return states.event.filter(function(d){
+      if(d.type === 3){
+        return d
+       }
+    })
   }
 }

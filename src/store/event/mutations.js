@@ -56,7 +56,7 @@ export default{
     func.local.set(states)
   },
  [type.CLEAREVENT](states){
-   states.event = '';
+   states.event = [];
    func.local.clear()
  },
  [type.DELEVENT](states,info){
@@ -74,10 +74,10 @@ export default{
  },
  [type.EDITEVENT](states,info){
    if(states.event[info.index].id === info.id){
-     states.event[info.index].content === info.content
+     states.event[info.index].content = info.content
    }else {
      states.event.filter(function(d){
-       if(d.id = info.id){
+       if(d.id == info.id){
          d.content = info.content
        }
      })

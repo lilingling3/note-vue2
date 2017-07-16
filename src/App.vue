@@ -14,11 +14,22 @@
                     @opentheme='openTheme'-->
         <n-slidebar :is-show='tools'
                     @opentheme='openTheme'
-                    @uploadData='uploadData'
+                    @uploadData='uploadDialogData'
+                    @cleardialog='clearData'
+                    @opentable='openTable'
         ></n-slidebar>
      </section>
-     <n-theme :is-show='theme'
-     ></n-theme>
+    <!--
+       dialog 动画
+      -->
+    <transition name='dialog'>
+        <n-dialog v-show="dialog" :msg='tips' @cancel = 'cancelUpload' @sure='sureDialog'></n-dialog>
+    </transition>
+    
+     <n-table :is-show='table' @deldialog='delDialog'></n-table>
+
+     <n-theme :is-show='theme'></n-theme>
+
      <n-footer></n-footer>
 
       <!--<router-view></router-view>-->
@@ -34,15 +45,25 @@ import nAdd from '@/components/event-add'
 import nList from '@/components/event-list'
 import nSlidebar from '@/components/slidebar'
 import nTheme from '@/components/theme'
+import nDialog from '@/components/dialog'
+import nTable from '@/components/event-table'
 
 export default {
   data(){
     return {
         tools:false,// 默认隐藏
         theme:false,
+        dialog:false,
+        dialog_type:'',
+        tips:'',
+        table:false,
+        del_info: {
+            index: 0,
+            id: 0
+        }
     }
   },
-  components:{nHeader,nFooter,nAdd,nList,nSlidebar,nTheme},
+  components:{nHeader,nFooter,nAdd,nList,nSlidebar,nTheme,nDialog,nTable},
   computed:{
     getTheme(){
         // 获取主题的颜色
@@ -54,18 +75,58 @@ export default {
         // 只会执行一个 不会冲突
         if(this.theme){
             this.theme = !this.theme
+        }else if(this.table){
+            this.table = !this.table
         }else{
             this.tools = !this.tools;
         }
-
     },
     openTheme(){
         this.theme = true;//主题页面打开
         this.tools = false;//slidebar隐藏
     },
-    uploadData(){
-
+    uploadDialogData(){
+        this.tools = false;
+        this.dialog = true;
+        this.dialog_type = 'upload';
+        this.tips = 'upload';
     },
+    cancelUpload(){
+        this.dialog = false;
+    },
+    // 不是 上传 的确定事件
+    sureDialog(){
+        const self = this;
+        switch(self.dialog_type){
+            case 'clear':
+                console.log('llll')
+                self.$store.dispatch('clearEvent');
+                break;
+            case 'del':
+                 self.$store.dispatch('delEvent',self.del_info)
+                 break;
+        }
+        self.dialog = false;
+    },
+    clearData(){
+        this.tools = false;
+        this.dialog = true;
+        this.dialog_type = 'clear';
+        this.tips = '清空后无法恢复，确认清空吗？'
+    },
+    openTable(){
+        this.table = true;
+        this.tools = false;
+    },
+    delDialog(index,id){
+        this.dialog = true;
+        this.dialog_type = 'del';
+        this.tips = '删除后无法恢复，确认删除吗？';
+        this.del_info = {
+             index: index,
+             id: id
+        }
+    }
   },
 }
 </script>
@@ -123,5 +184,11 @@ ul{
   max-width:800px;
   margin: auto;
   box-sizing: border-box
+}
+.dialog-enter-active, .dialog-leave-active {
+    transition: opacity .3s;
+}
+.dialog-enter, .dialog-leave-to{
+    opacity: 0;
 }
 </style>

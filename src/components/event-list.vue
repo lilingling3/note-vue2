@@ -54,7 +54,8 @@ export default {
   computed:{
     // 获取store  => getters
     getTodo(){
-      return this.$store.getters.getTodo
+      console.log('kkkkk')
+      return  this.$store.getters.getToDo;
     },
     getDone(){
       return this.$store.getters.getDone

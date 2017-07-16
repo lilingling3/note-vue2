@@ -14,7 +14,7 @@
         <button class="tools-btn" @click="openTable()">编辑数据</button>
       </li>
       <li>
-        <button class="tools-btn" @click="showDialog()">清空数据</button>
+        <button class="tools-btn" @click="clearData()">清空数据</button>
       </li>
     </ul>
 </div>
@@ -51,13 +51,14 @@ export default {
     },
     // 导入数据
     uploadData(){
-
+        console.log('导入数据')
+        this.$emit('uploadData')
     },
-    showDialog(){
-
+    clearData(){
+        this.$emit('cleardialog')
     },
     openTable(){
-
+        this.$emit('opentable')
     }
   }
 }

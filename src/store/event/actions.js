@@ -4,8 +4,11 @@ export default {
   eventDone: ({commit}, param) =>commit('EVENTDONE',{id: param}),
   eventTodo: ({commit}, param) =>commit('EVENTTODO',{id: param}),
   eventCancel: ({commit}, param) =>commit('EVENTCANCEL',{id: param}),
+
+  editEvent: ({commit}, param) =>commit('EDITEVENT',param),
+
   clearEvent: ({commit}) =>commit('CLEAREVENT'),
   delEvent: ({commit}, param) =>commit('DELEVENT',param),
-  editEvent: ({commit}, param) =>commit('EDITEVENT',param),
+  
   uploadEvent: ({commit}, param) =>commit('UPLOADEVENT',param)
 }
